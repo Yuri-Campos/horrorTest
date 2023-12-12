@@ -1,6 +1,5 @@
-[gd_scene load_steps=8 format=3 uid="uid://sbx0wy1q8qjp"]
+[gd_scene load_steps=7 format=3 uid="uid://sbx0wy1q8qjp"]
 
-[ext_resource type="Script" path="res://maps/lvl_1.gd" id="1_k1otp"]
 [ext_resource type="PackedScene" uid="uid://bqe53mhaag0j1" path="res://Player/player.tscn" id="2_8s4ko"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07cre"]
@@ -22,7 +21,6 @@ glow_enabled = true
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="lvl1" type="Node"]
-script = ExtResource("1_k1otp")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.692143, -0.478253, 0.540566, 0, 0.748956, 0.66262, -0.72176, -0.458628, 0.518385, 0, 2, -2)
@@ -41,4 +39,3 @@ mesh = SubResource("BoxMesh_ha3bl")
 shape = SubResource("ConcavePolygonShape3D_wlgvd")
 
 [node name="player" parent="." instance=ExtResource("2_8s4ko")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 2)
