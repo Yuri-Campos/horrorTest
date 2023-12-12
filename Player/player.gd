@@ -7,6 +7,7 @@ extends CharacterBody3D
 @export var mouse_sens: float= 0.15
 @export var cam_bob_speed: float = 6
 @export var cam_bob_up_down: float = 0.5
+@export var is_bob_on: bool = false
 
 const GRAVITY: float = 9.8
 
@@ -17,6 +18,7 @@ var _delta:float = 0.0
 
 var cam_bob
 var obj_cam
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -29,7 +31,13 @@ func _input(event):
 
 
 func _process(delta):
-	cam_movement(delta)
+	if(is_bob_on):
+		cam_movement(delta)
+	
+func _physics_process(delta) -> void:
+	process_movement(delta)
+	
+	
 	
 func cam_movement(delta):
 	_delta += delta
@@ -46,8 +54,7 @@ func cam_movement(delta):
 	
 	
 
-func _physics_process(delta) -> void:
-	process_movement(delta)
+
 	
 	
 func process_movement(delta) -> void:
