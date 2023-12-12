@@ -4,6 +4,7 @@ extends CharacterBody3D
 @onready var camera_3d = $Camera3D
 @onready var origin_cam_pos: Vector3 = camera_3d.position
 @onready var floor_detect_raycast:RayCast3D = $FloorDetectorRaycast
+@onready var step_sound: AudioStreamPlayer3D = $StepSound
 
 @export var mouse_sens: float= 0.15
 @export var cam_bob_speed: float = 6
@@ -19,6 +20,9 @@ var _delta:float = 0.0
 
 var cam_bob
 var obj_cam
+
+var distance_footstep: float = 0.0
+var play_footstep: int = 3
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -37,7 +41,8 @@ func _process(delta):
 		var walkingterrain = floor_detect_raycast.get_collider().get_parent()
 		if walkingterrain != null:
 			var terraingroup = walkingterrain.get_groups()[0]
-			print(terraingroup)
+			process_ground_sounds(terraingroup)
+		
 		
 func _physics_process(delta) -> void:
 	process_movement(delta)
@@ -75,4 +80,19 @@ func process_movement(delta) -> void:
 	
 
 	move_and_slide()
+	
+func process_ground_sounds(group: String):
+	if play_footstep != 100 and (int(velocity.x) != 0) || int (velocity.z) != 0:
+		distance_footstep += 0.1
+		
+	if distance_footstep > play_footstep and is_on_floor():
+		match group:
+			"terrain_wood":
+				step_sound.stream = load("res://sounds/steps/wood/1.ogg")
+				
+		
+		step_sound.pitch_scale = randf_range(0.8, 1.2)
+		step_sound.play()
+		
+		distance_footstep = 0.0
 	
