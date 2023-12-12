@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://t7denqxlhghk"]
+
+[ext_resource type="Script" path="res://objects/test_obj.gd" id="1_wp4cu"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lys3m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_mcgk2"]
+
+[node name="test_obj" type="Area3D" groups=["Interactable"]]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+script = ExtResource("1_wp4cu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_lys3m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_mcgk2")

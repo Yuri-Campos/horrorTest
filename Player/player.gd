@@ -5,6 +5,7 @@ extends CharacterBody3D
 @onready var origin_cam_pos: Vector3 = camera_3d.position
 @onready var floor_detect_raycast:RayCast3D = $FloorDetectorRaycast
 @onready var step_sound: AudioStreamPlayer3D = $StepSound
+@onready var interact_cast: RayCast3D = $Camera3D/Interact
 
 @export var mouse_sens: float= 0.15
 @export var cam_bob_speed: float = 6
@@ -14,8 +15,8 @@ extends CharacterBody3D
 const GRAVITY: float = 9.8
 
 var direction: Vector3
-var speed: int = 2
-var jump_vel: int = 4
+var speed: float = 2.0
+var jump_vel: float = 4.0
 var _delta:float = 0.0
 
 var cam_bob
@@ -25,6 +26,8 @@ var distance_footstep: float = 0.0
 var play_footstep: int = 3
 var is_running: bool = false
 var stamina: float = 100.0
+
+var cast_collider_obj
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -37,6 +40,13 @@ func _input(event):
 		is_running = true
 	if Input.is_action_just_released("action_run"):
 		is_running = false
+		
+	if Input.is_action_just_pressed("action_interact"):
+		print("interacted")
+		cast_collider_obj = interact_cast.get_collider()
+		if cast_collider_obj != null and cast_collider_obj.is_in_group("Interactable") && cast_collider_obj.has_method("action_use"):
+			cast_collider_obj.action_use()
+			
 func _process(delta):
 	if(is_bob_on):
 		cam_movement(delta)	
@@ -75,7 +85,7 @@ func process_movement(delta) -> void:
 	direction = Vector3(direction.x, 0, direction.z).rotated(Vector3.UP, h_rot).normalized()
 	
 	
-	var char_speed = speed * 1.5 if is_running && stamina > 0 else speed
+	var char_speed = speed * 1.5 if is_running else speed
 	velocity.x = direction.x * char_speed
 	velocity.z = direction.z * char_speed
 	

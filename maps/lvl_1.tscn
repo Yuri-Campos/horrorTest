@@ -1,6 +1,7 @@
-[gd_scene load_steps=12 format=3 uid="uid://sbx0wy1q8qjp"]
+[gd_scene load_steps=13 format=3 uid="uid://sbx0wy1q8qjp"]
 
 [ext_resource type="PackedScene" uid="uid://bqe53mhaag0j1" path="res://Player/player.tscn" id="2_8s4ko"]
+[ext_resource type="PackedScene" uid="uid://t7denqxlhghk" path="res://objects/test_obj.tscn" id="2_bmxx5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_07cre"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -75,3 +76,6 @@ mesh = SubResource("TextMesh_pbja1")
 [node name="GrassText" type="MeshInstance3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0.4, -3)
 mesh = SubResource("TextMesh_od8ld")
+
+[node name="test_obj" parent="." instance=ExtResource("2_bmxx5")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, -6.09072, 1.03343, 0)
