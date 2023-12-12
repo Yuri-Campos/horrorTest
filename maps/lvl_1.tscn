@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://sbx0wy1q8qjp"]
+[gd_scene load_steps=12 format=3 uid="uid://sbx0wy1q8qjp"]
 
 [ext_resource type="PackedScene" uid="uid://bqe53mhaag0j1" path="res://Player/player.tscn" id="2_8s4ko"]
 
@@ -17,8 +17,25 @@ glow_enabled = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_ha3bl"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_js0rk"]
+albedo_color = Color(0.356863, 0.239216, 0.0745098, 1)
+
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_wlgvd"]
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f033d"]
+albedo_color = Color(0.188235, 0.45098, 0.298039, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jeot1"]
+
+[sub_resource type="TextMesh" id="TextMesh_pbja1"]
+material = SubResource("StandardMaterial3D_jeot1")
+text = "Wood
+"
+
+[sub_resource type="TextMesh" id="TextMesh_od8ld"]
+text = "Grass
+"
 
 [node name="lvl1" type="Node"]
 
@@ -32,10 +49,29 @@ environment = SubResource("Environment_7ov8r")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["terrain_wood"]]
 transform = Transform3D(9.96513, 0, 0, 0, 0.140808, 0, 0, 0, 10.3024, 0.616452, 0.21048, 1.83672)
 mesh = SubResource("BoxMesh_ha3bl")
+surface_material_override/0 = SubResource("StandardMaterial3D_js0rk")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_wlgvd")
 
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." groups=["terrain_grass", "terrain_wood"]]
+transform = Transform3D(9.96513, 0, 0, 0, 0.140808, 0, 0, 0, 10.3024, -9.39419, 0.21048, 1.83672)
+mesh = SubResource("BoxMesh_ha3bl")
+surface_material_override/0 = SubResource("StandardMaterial3D_f033d")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_wlgvd")
+
 [node name="player" parent="." instance=ExtResource("2_8s4ko")]
+
+[node name="WoodText" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -4, 0.4, -3)
+mesh = SubResource("TextMesh_pbja1")
+
+[node name="GrassText" type="MeshInstance3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -5, 0.4, -3)
+mesh = SubResource("TextMesh_od8ld")
