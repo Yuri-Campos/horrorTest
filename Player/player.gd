@@ -3,6 +3,7 @@ extends CharacterBody3D
 
 @onready var camera_3d = $Camera3D
 @onready var origin_cam_pos: Vector3 = camera_3d.position
+@onready var floor_detect_raycast:RayCast3D = $FloorDetectorRaycast
 
 @export var mouse_sens: float= 0.15
 @export var cam_bob_speed: float = 6
@@ -22,22 +23,24 @@ var obj_cam
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-
 func _input(event):
 	if event is InputEventMouseMotion:
 		rotate_y(deg_to_rad(-event.relative.x * mouse_sens))
 		camera_3d.rotate_x(deg_to_rad(-event.relative.y * mouse_sens))
 		camera_3d.rotation.x = clamp(camera_3d.rotation.x, deg_to_rad(-89), deg_to_rad(89))
 
-
 func _process(delta):
 	if(is_bob_on):
-		cam_movement(delta)
-	
+		cam_movement(delta)	
+		
+	if floor_detect_raycast.is_colliding():
+		var walkingterrain = floor_detect_raycast.get_collider().get_parent()
+		if walkingterrain != null:
+			var terraingroup = walkingterrain.get_groups()[0]
+			print(terraingroup)
+		
 func _physics_process(delta) -> void:
 	process_movement(delta)
-	
-	
 	
 func cam_movement(delta):
 	_delta += delta
@@ -51,11 +54,6 @@ func cam_movement(delta):
 		
 	
 	camera_3d.position = camera_3d.position.lerp(obj_cam, delta)
-	
-	
-
-
-	
 	
 func process_movement(delta) -> void:
 	direction = Vector3.ZERO

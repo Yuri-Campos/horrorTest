@@ -29,7 +29,7 @@ shadow_enabled = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_7ov8r")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." groups=["terrain_wood"]]
 transform = Transform3D(9.96513, 0, 0, 0, 0.140808, 0, 0, 0, 10.3024, 0.616452, 0.21048, 1.83672)
 mesh = SubResource("BoxMesh_ha3bl")
 
